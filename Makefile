@@ -1,10 +1,12 @@
-PROJECT_NAME := Pulumi Xyz Resource Provider
+SHELL := /bin/bash
 
-PACK             := xyz
+PROJECT_NAME := Pulumi azure-ext Resource Provider
+
+PACK             := azure
 PACKDIR          := sdk
-PROJECT          := github.com/pulumi/pulumi-xyz
-NODE_MODULE_NAME := @abc/xyz
-NUGET_PKG_NAME   := Abc.Xyz
+PROJECT          := github.com/jhoeflaken/pulumi-azure-ext-native
+NODE_MODULE_NAME := @jhoeflaken/azure
+NUGET_PKG_NAME   := jhoeflaken.azure
 
 PROVIDER        := pulumi-resource-${PACK}
 VERSION         ?= $(shell pulumictl get version)
