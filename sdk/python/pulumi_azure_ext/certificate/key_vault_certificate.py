@@ -7,38 +7,28 @@ import warnings
 import pulumi
 import pulumi.runtime
 from typing import Any, Mapping, Optional, Sequence, Union, overload
-from . import _utilities
+from .. import _utilities
 
-__all__ = ['RandomArgs', 'Random']
+__all__ = ['KeyVaultCertificateArgs', 'KeyVaultCertificate']
 
 @pulumi.input_type
-class RandomArgs:
-    def __init__(__self__, *,
-                 length: pulumi.Input[int]):
+class KeyVaultCertificateArgs:
+    def __init__(__self__):
         """
-        The set of arguments for constructing a Random resource.
+        The set of arguments for constructing a KeyVaultCertificate resource.
         """
-        pulumi.set(__self__, "length", length)
-
-    @property
-    @pulumi.getter
-    def length(self) -> pulumi.Input[int]:
-        return pulumi.get(self, "length")
-
-    @length.setter
-    def length(self, value: pulumi.Input[int]):
-        pulumi.set(self, "length", value)
+        pass
 
 
-class Random(pulumi.CustomResource):
+class KeyVaultCertificate(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 length: Optional[pulumi.Input[int]] = None,
                  __props__=None):
         """
-        Create a Random resource with the given unique name, props, and options.
+        An Azure key vault certificate.
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         """
@@ -46,17 +36,18 @@ class Random(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: RandomArgs,
+                 args: Optional[KeyVaultCertificateArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a Random resource with the given unique name, props, and options.
+        An Azure key vault certificate.
+
         :param str resource_name: The name of the resource.
-        :param RandomArgs args: The arguments to use to populate this resource's properties.
+        :param KeyVaultCertificateArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
         """
         ...
     def __init__(__self__, resource_name: str, *args, **kwargs):
-        resource_args, opts = _utilities.get_resource_args_opts(RandomArgs, pulumi.ResourceOptions, *args, **kwargs)
+        resource_args, opts = _utilities.get_resource_args_opts(KeyVaultCertificateArgs, pulumi.ResourceOptions, *args, **kwargs)
         if resource_args is not None:
             __self__._internal_init(resource_name, opts, **resource_args.__dict__)
         else:
@@ -65,7 +56,6 @@ class Random(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 length: Optional[pulumi.Input[int]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -73,14 +63,10 @@ class Random(pulumi.CustomResource):
         if opts.id is None:
             if __props__ is not None:
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
-            __props__ = RandomArgs.__new__(RandomArgs)
+            __props__ = KeyVaultCertificateArgs.__new__(KeyVaultCertificateArgs)
 
-            if length is None and not opts.urn:
-                raise TypeError("Missing required property 'length'")
-            __props__.__dict__["length"] = length
-            __props__.__dict__["result"] = None
-        super(Random, __self__).__init__(
-            'azure:index:Random',
+        super(KeyVaultCertificate, __self__).__init__(
+            'azure-ext:certificate:KeyVaultCertificate',
             resource_name,
             __props__,
             opts)
@@ -88,9 +74,9 @@ class Random(pulumi.CustomResource):
     @staticmethod
     def get(resource_name: str,
             id: pulumi.Input[str],
-            opts: Optional[pulumi.ResourceOptions] = None) -> 'Random':
+            opts: Optional[pulumi.ResourceOptions] = None) -> 'KeyVaultCertificate':
         """
-        Get an existing Random resource's state with the given name, id, and optional extra
+        Get an existing KeyVaultCertificate resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.
 
         :param str resource_name: The unique name of the resulting resource.
@@ -99,19 +85,7 @@ class Random(pulumi.CustomResource):
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
 
-        __props__ = RandomArgs.__new__(RandomArgs)
+        __props__ = KeyVaultCertificateArgs.__new__(KeyVaultCertificateArgs)
 
-        __props__.__dict__["length"] = None
-        __props__.__dict__["result"] = None
-        return Random(resource_name, opts=opts, __props__=__props__)
-
-    @property
-    @pulumi.getter
-    def length(self) -> pulumi.Output[int]:
-        return pulumi.get(self, "length")
-
-    @property
-    @pulumi.getter
-    def result(self) -> pulumi.Output[str]:
-        return pulumi.get(self, "result")
+        return KeyVaultCertificate(resource_name, opts=opts, __props__=__props__)
 

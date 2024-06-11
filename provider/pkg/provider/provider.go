@@ -24,8 +24,8 @@ func Provider() p.Provider {
 			"extension",
 		},
 		Homepage:   "",
-		License:    "apache-2.0",
-		Repository: "",
+		License:    "Apache-2.0",
+		Repository: "https://github.com/jhoeflaken/pulumi-azure-ext",
 		LogoURL:    "",
 		LanguageMap: map[string]any{
 			"csharp": map[string]any{
@@ -48,7 +48,7 @@ func Provider() p.Provider {
 			"python": map[string]any{
 				"respectSchemaVersion": true,
 				"requires": map[string]any{
-					"pulumi": ">-3.0.0,<4.0.0",
+					"pulumi": ">=3.0.0,<4.0.0",
 				},
 				"pyproject": map[string]any{
 					"enabled": true,

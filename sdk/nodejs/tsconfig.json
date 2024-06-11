@@ -13,9 +13,10 @@
         "strict": true
     },
     "files": [
+        "certificate/index.ts",
+        "certificate/keyVaultCertificate.ts",
         "index.ts",
         "provider.ts",
-        "random.ts",
         "utilities.ts"
     ]
 }

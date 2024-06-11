@@ -75,7 +75,7 @@ func PkgVersion() (semver.Version, error) {
 	}
 	type sentinal struct{}
 	pkgPath := reflect.TypeOf(sentinal{}).PkgPath()
-	re := regexp.MustCompile("^.*/pulumi-azure/sdk(/v\\d+)?")
+	re := regexp.MustCompile("^.*/pulumi-azure-ext/sdk(/v\\d+)?")
 	if match := re.FindStringSubmatch(pkgPath); match != nil {
 		vStr := match[1]
 		if len(vStr) == 0 { // If the version capture group was empty, default to v1.
@@ -165,7 +165,7 @@ func callPlainInner(
 func PkgResourceDefaultOpts(opts []pulumi.ResourceOption) []pulumi.ResourceOption {
 	defaults := []pulumi.ResourceOption{}
 
-	version := SdkVersion
+	version := semver.MustParse("0.0.1-alpha.1718110410+73a55c31.dirty")
 	if !version.Equals(semver.Version{}) {
 		defaults = append(defaults, pulumi.Version(version.String()))
 	}
@@ -176,7 +176,7 @@ func PkgResourceDefaultOpts(opts []pulumi.ResourceOption) []pulumi.ResourceOptio
 func PkgInvokeDefaultOpts(opts []pulumi.InvokeOption) []pulumi.InvokeOption {
 	defaults := []pulumi.InvokeOption{}
 
-	version := SdkVersion
+	version := semver.MustParse("0.0.1-alpha.1718110410+73a55c31.dirty")
 	if !version.Equals(semver.Version{}) {
 		defaults = append(defaults, pulumi.Version(version.String()))
 	}

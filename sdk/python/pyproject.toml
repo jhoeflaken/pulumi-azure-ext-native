@@ -1,0 +1,21 @@
+[project]
+  name = "pulumi_azure_ext"
+  description = "The Pulumi Azure Extension Provider enables you to manage resources not supported by the Pulumi azure Native Provider, such as vault certificates."
+  dependencies = ["parver>=0.2.1", "pulumi>=3.0.0,<4.0.0", "semver>=2.8.1"]
+  keywords = ["azure", "extension"]
+  readme = "README.md"
+  requires-python = ">=3.8"
+  version = "0.0.1a1718110410+73a55c31.dirty"
+  [project.license]
+    text = "Apache-2.0"
+  [project.urls]
+    Repository = "https://github.com/jhoeflaken/pulumi-azure-ext"
+
+[build-system]
+  requires = ["setuptools>=61.0"]
+  build-backend = "setuptools.build_meta"
+
+[tool]
+  [tool.setuptools]
+    [tool.setuptools.package-data]
+      pulumi_azure_ext = ["py.typed", "pulumi-plugin.json"]

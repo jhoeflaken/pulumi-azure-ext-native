@@ -7,32 +7,28 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-namespace Pulumi.Azure
+namespace Pulumi.AzureExt.Certificate
 {
-    [AzureResourceType("azure:index:Random")]
-    public partial class Random : global::Pulumi.CustomResource
+    /// <summary>
+    /// An Azure key vault certificate.
+    /// </summary>
+    [AzureExtResourceType("azure-ext:certificate:KeyVaultCertificate")]
+    public partial class KeyVaultCertificate : global::Pulumi.CustomResource
     {
-        [Output("length")]
-        public Output<int> Length { get; private set; } = null!;
-
-        [Output("result")]
-        public Output<string> Result { get; private set; } = null!;
-
-
         /// <summary>
-        /// Create a Random resource with the given unique name, arguments, and options.
+        /// Create a KeyVaultCertificate resource with the given unique name, arguments, and options.
         /// </summary>
         ///
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public Random(string name, RandomArgs args, CustomResourceOptions? options = null)
-            : base("azure:index:Random", name, args ?? new RandomArgs(), MakeResourceOptions(options, ""))
+        public KeyVaultCertificate(string name, KeyVaultCertificateArgs? args = null, CustomResourceOptions? options = null)
+            : base("azure-ext:certificate:KeyVaultCertificate", name, args ?? new KeyVaultCertificateArgs(), MakeResourceOptions(options, ""))
         {
         }
 
-        private Random(string name, Input<string> id, CustomResourceOptions? options = null)
-            : base("azure:index:Random", name, null, MakeResourceOptions(options, id))
+        private KeyVaultCertificate(string name, Input<string> id, CustomResourceOptions? options = null)
+            : base("azure-ext:certificate:KeyVaultCertificate", name, null, MakeResourceOptions(options, id))
         {
         }
 
@@ -48,27 +44,24 @@ namespace Pulumi.Azure
             return merged;
         }
         /// <summary>
-        /// Get an existing Random resource's state with the given name, ID, and optional extra
+        /// Get an existing KeyVaultCertificate resource's state with the given name, ID, and optional extra
         /// properties used to qualify the lookup.
         /// </summary>
         ///
         /// <param name="name">The unique name of the resulting resource.</param>
         /// <param name="id">The unique provider ID of the resource to lookup.</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public static Random Get(string name, Input<string> id, CustomResourceOptions? options = null)
+        public static KeyVaultCertificate Get(string name, Input<string> id, CustomResourceOptions? options = null)
         {
-            return new Random(name, id, options);
+            return new KeyVaultCertificate(name, id, options);
         }
     }
 
-    public sealed class RandomArgs : global::Pulumi.ResourceArgs
+    public sealed class KeyVaultCertificateArgs : global::Pulumi.ResourceArgs
     {
-        [Input("length", required: true)]
-        public Input<int> Length { get; set; } = null!;
-
-        public RandomArgs()
+        public KeyVaultCertificateArgs()
         {
         }
-        public static new RandomArgs Empty => new RandomArgs();
+        public static new KeyVaultCertificateArgs Empty => new KeyVaultCertificateArgs();
     }
 }

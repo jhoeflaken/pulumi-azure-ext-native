@@ -7,9 +7,9 @@ using System.Collections.Immutable;
 using System.Threading.Tasks;
 using Pulumi.Serialization;
 
-namespace Pulumi.Azure
+namespace Pulumi.AzureExt
 {
-    [AzureResourceType("pulumi:providers:azure")]
+    [AzureExtResourceType("pulumi:providers:azure-ext")]
     public partial class Provider : global::Pulumi.ProviderResource
     {
         /// <summary>
@@ -20,7 +20,7 @@ namespace Pulumi.Azure
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
         public Provider(string name, ProviderArgs? args = null, CustomResourceOptions? options = null)
-            : base("azure", name, args ?? new ProviderArgs(), MakeResourceOptions(options, ""))
+            : base("azure-ext", name, args ?? new ProviderArgs(), MakeResourceOptions(options, ""))
         {
         }
 

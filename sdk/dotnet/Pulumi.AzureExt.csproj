@@ -4,11 +4,12 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>Pulumi Corp.</Authors>
     <Company>Pulumi Corp.</Company>
-    <Description></Description>
-    <PackageLicenseExpression></PackageLicenseExpression>
+    <Description>The Pulumi Azure Extension Provider enables you to manage resources not supported by the Pulumi azure Native Provider, such as vault certificates.</Description>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageProjectUrl></PackageProjectUrl>
-    <RepositoryUrl></RepositoryUrl>
+    <RepositoryUrl>https://github.com/jhoeflaken/pulumi-azure-ext</RepositoryUrl>
     <PackageIcon>logo.png</PackageIcon>
+    <Version>0.0.1-alpha.1718110410+73a55c31.dirty</Version>
 
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
@@ -44,7 +45,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Pulumi" Version="[3.54.1.0,4)" />
+    <PackageReference Include="Pulumi" Version="3.*" />
   </ItemGroup>
 
   <ItemGroup>
