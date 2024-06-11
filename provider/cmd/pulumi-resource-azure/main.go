@@ -17,7 +17,7 @@ package main
 import (
 	p "github.com/pulumi/pulumi-go-provider"
 
-	azure "github.com/jhoeflaken/pulumi-azure-ext-native/provider"
+	azure "github.com/jhoeflaken/pulumi-azure-ext-native/provider/pkg/provider"
 )
 
 // Serve the provider against Pulumi's Provider protocol.

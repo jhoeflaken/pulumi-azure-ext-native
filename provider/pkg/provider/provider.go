@@ -2,12 +2,9 @@ package provider
 
 import (
 	"github.com/jhoeflaken/pulumi-azure-ext-native/provider/pkg/provider/keyvault/certificate"
-	"github.com/pkg/errors"
-	"github.com/pulumi/pulumi-go-provider/middleware/schema"
-
-	"github.com/Azure/azure-sdk-for-go/sdk/azidentity"
 	p "github.com/pulumi/pulumi-go-provider"
 	"github.com/pulumi/pulumi-go-provider/infer"
+	"github.com/pulumi/pulumi-go-provider/middleware/schema"
 )
 
 func Provider() p.Provider {
@@ -71,21 +68,4 @@ func Provider() p.Provider {
 		Resources: resources,
 		Config:    config,
 	})
-}
-
-type Config struct {
-	Credential *azidentity.DefaultAzureCredential
-}
-
-var _ = (infer.CustomConfigure)((*Config)(nil))
-
-// Configure the provider with the given configuration.
-func (c *Config) Configure(p.Context) error {
-	credential, err := azidentity.NewDefaultAzureCredential(nil)
-	if err != nil {
-		return errors.Wrap(err, "Failed to create default azure credential.")
-	}
-
-	c.Credential = credential
-	return nil
 }
