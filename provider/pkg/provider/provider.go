@@ -1,6 +1,7 @@
 package provider
 
 import (
+	cfg "github.com/jhoeflaken/pulumi-azure-ext-native/provider/pkg/provider/config"
 	"github.com/jhoeflaken/pulumi-azure-ext-native/provider/pkg/provider/keyvault/certificate"
 	p "github.com/pulumi/pulumi-go-provider"
 	"github.com/pulumi/pulumi-go-provider/infer"
@@ -13,7 +14,7 @@ func Provider() p.Provider {
 	var resource = infer.Resource[*certificate.KeyVaultCertificate, certificate.KeyVaultCertificateArgs, certificate.KeyVaultCertificateState]()
 	resources = append(resources, resource)
 
-	var config = infer.Config[*Config]()
+	var config = infer.Config[*cfg.Config]()
 
 	var metadata = schema.Metadata{
 		DisplayName: "Azure Extension",

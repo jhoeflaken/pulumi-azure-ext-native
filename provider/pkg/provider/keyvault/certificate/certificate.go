@@ -25,6 +25,6 @@ type KeyVaultCertificateArgs struct {
 
 type KeyVaultCertificateState struct {
 	KeyVaultCertificateArgs
-	name    string
-	version string
+	Name    string
+	Version string
 }

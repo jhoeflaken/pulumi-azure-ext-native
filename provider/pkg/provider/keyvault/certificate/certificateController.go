@@ -2,7 +2,7 @@ package certificate
 
 import (
 	"github.com/Azure/azure-sdk-for-go/sdk/security/keyvault/azcertificates"
-	"github.com/jhoeflaken/pulumi-azure-ext-native/provider/pkg/provider"
+	cfg "github.com/jhoeflaken/pulumi-azure-ext-native/provider/pkg/provider/config"
 	"github.com/pkg/errors"
 	p "github.com/pulumi/pulumi-go-provider"
 
@@ -34,8 +34,8 @@ func (c *KeyVaultCertificate) Create(ctx p.Context, name string, args KeyVaultCe
 	}
 
 	return resp.ID.Name(), KeyVaultCertificateState{
-		name:    resp.ID.Name(),
-		version: resp.ID.Version(),
+		Name:    resp.ID.Name(),
+		Version: resp.ID.Version(),
 	}, nil
 }
 
@@ -56,8 +56,8 @@ func (c *KeyVaultCertificate) Update(ctx p.Context, name string, olds KeyVaultCe
 	}
 
 	return KeyVaultCertificateState{
-		name:    resp.ID.Name(),
-		version: resp.ID.Version(),
+		Name:    resp.ID.Name(),
+		Version: resp.ID.Version(),
 	}, nil
 }
 
@@ -78,7 +78,7 @@ func (c *KeyVaultCertificate) Delete(ctx p.Context, id string, props KeyVaultCer
 
 // Create a new client for managing the Azure Key Vault Certificates.
 func newClient(ctx p.Context, vaultName string) (*azcertificates.Client, error) {
-	var config = infer.GetConfig[*provider.Config](ctx)
+	var config = infer.GetConfig[*cfg.Config](ctx)
 	client, err := azcertificates.NewClient(vaultName, config.Credential, nil)
 	if err != nil {
 		return nil, err

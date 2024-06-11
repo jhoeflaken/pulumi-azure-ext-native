@@ -15,10 +15,11 @@
 package main
 
 import (
+	"github.com/jhoeflaken/pulumi-azure-ext-native/provider/pkg/version"
 	p "github.com/pulumi/pulumi-go-provider"
 
 	azure "github.com/jhoeflaken/pulumi-azure-ext-native/provider/pkg/provider"
 )
 
 // Serve the provider against Pulumi's Provider protocol.
-func main() { p.RunProvider(azure.Name, azure.Version, azure.Provider()) }
+func main() { p.RunProvider("azure-ext", version.Version, azure.Provider()) }
