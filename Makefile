@@ -1,6 +1,6 @@
 SHELL := /bin/bash
 
-PROJECT_NAME := Pulumi azure-ext Resource Provider
+PROJECT_NAME := Pulumi Azure Extended Resource Provider
 
 PACK             := azure
 PACKDIR          := sdk
@@ -11,7 +11,7 @@ NUGET_PKG_NAME   := jhoeflaken.azure
 PROVIDER        := pulumi-resource-${PACK}
 VERSION         ?= $(shell pulumictl get version)
 PROVIDER_PATH   := provider
-VERSION_PATH    := ${PROVIDER_PATH}.Version
+VERSION_PATH    := ${PROVIDER_PATH}/pkg/version.Version
 
 GOPATH			:= $(shell go env GOPATH)
 
