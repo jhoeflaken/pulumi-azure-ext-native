@@ -6,8 +6,12 @@ package com.pulumi.azureext.certificate;
 import com.pulumi.azureext.Utilities;
 import com.pulumi.azureext.certificate.KeyVaultCertificateArgs;
 import com.pulumi.core.Output;
+import com.pulumi.core.annotations.Export;
 import com.pulumi.core.annotations.ResourceType;
 import com.pulumi.core.internal.Codegen;
+import java.lang.String;
+import java.util.Map;
+import java.util.Optional;
 import javax.annotation.Nullable;
 
 /**
@@ -16,6 +20,43 @@ import javax.annotation.Nullable;
  */
 @ResourceType(type="azure-ext:certificate:KeyVaultCertificate")
 public class KeyVaultCertificate extends com.pulumi.resources.CustomResource {
+    @Export(name="base64EncodedCertificate", refs={String.class}, tree="[0]")
+    private Output<String> base64EncodedCertificate;
+
+    public Output<String> base64EncodedCertificate() {
+        return this.base64EncodedCertificate;
+    }
+    @Export(name="name", refs={String.class}, tree="[0]")
+    private Output<String> name;
+
+    public Output<String> name() {
+        return this.name;
+    }
+    @Export(name="password", refs={String.class}, tree="[0]")
+    private Output</* @Nullable */ String> password;
+
+    public Output<Optional<String>> password() {
+        return Codegen.optional(this.password);
+    }
+    @Export(name="tags", refs={Map.class,String.class}, tree="[0,1,1]")
+    private Output</* @Nullable */ Map<String,String>> tags;
+
+    public Output<Optional<Map<String,String>>> tags() {
+        return Codegen.optional(this.tags);
+    }
+    @Export(name="vaultName", refs={String.class}, tree="[0]")
+    private Output<String> vaultName;
+
+    public Output<String> vaultName() {
+        return this.vaultName;
+    }
+    @Export(name="version", refs={String.class}, tree="[0]")
+    private Output<String> version;
+
+    public Output<String> version() {
+        return this.version;
+    }
+
     /**
      *
      * @param name The _unique_ name of the resulting resource.
@@ -28,7 +69,7 @@ public class KeyVaultCertificate extends com.pulumi.resources.CustomResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public KeyVaultCertificate(String name, @Nullable KeyVaultCertificateArgs args) {
+    public KeyVaultCertificate(String name, KeyVaultCertificateArgs args) {
         this(name, args, null);
     }
     /**
@@ -37,7 +78,7 @@ public class KeyVaultCertificate extends com.pulumi.resources.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public KeyVaultCertificate(String name, @Nullable KeyVaultCertificateArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public KeyVaultCertificate(String name, KeyVaultCertificateArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("azure-ext:certificate:KeyVaultCertificate", name, args == null ? KeyVaultCertificateArgs.Empty : args, makeResourceOptions(options, Codegen.empty()));
     }
 

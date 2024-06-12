@@ -17,14 +17,14 @@ func (c *KeyVaultCertificate) Annotate(a infer.Annotator) {
 }
 
 type KeyVaultCertificateArgs struct {
-	VaultName                string
-	Base64EncodedCertificate *string
-	Password                 *string
-	Tags                     map[string]*string
+	VaultName                *string             `pulumi:"vaultName"`
+	Base64EncodedCertificate *string             `pulumi:"base64EncodedCertificate"`
+	Password                 *string             `pulumi:"password,optional"`
+	Tags                     *map[string]*string `pulumi:"tags,optional"`
 }
 
 type KeyVaultCertificateState struct {
 	KeyVaultCertificateArgs
-	Name    string
-	Version string
+	Name    string `pulumi:"name"`
+	Version string `pulumi:"version"`
 }

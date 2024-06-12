@@ -34,6 +34,12 @@ export class KeyVaultCertificate extends pulumi.CustomResource {
         return obj['__pulumiType'] === KeyVaultCertificate.__pulumiType;
     }
 
+    public readonly base64EncodedCertificate!: pulumi.Output<string>;
+    public /*out*/ readonly name!: pulumi.Output<string>;
+    public readonly password!: pulumi.Output<string | undefined>;
+    public readonly tags!: pulumi.Output<{[key: string]: string} | undefined>;
+    public readonly vaultName!: pulumi.Output<string>;
+    public /*out*/ readonly version!: pulumi.Output<string>;
 
     /**
      * Create a KeyVaultCertificate resource with the given unique name, arguments, and options.
@@ -42,11 +48,29 @@ export class KeyVaultCertificate extends pulumi.CustomResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args?: KeyVaultCertificateArgs, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args: KeyVaultCertificateArgs, opts?: pulumi.CustomResourceOptions) {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (!opts.id) {
+            if ((!args || args.base64EncodedCertificate === undefined) && !opts.urn) {
+                throw new Error("Missing required property 'base64EncodedCertificate'");
+            }
+            if ((!args || args.vaultName === undefined) && !opts.urn) {
+                throw new Error("Missing required property 'vaultName'");
+            }
+            resourceInputs["base64EncodedCertificate"] = args ? args.base64EncodedCertificate : undefined;
+            resourceInputs["password"] = args ? args.password : undefined;
+            resourceInputs["tags"] = args ? args.tags : undefined;
+            resourceInputs["vaultName"] = args ? args.vaultName : undefined;
+            resourceInputs["name"] = undefined /*out*/;
+            resourceInputs["version"] = undefined /*out*/;
         } else {
+            resourceInputs["base64EncodedCertificate"] = undefined /*out*/;
+            resourceInputs["name"] = undefined /*out*/;
+            resourceInputs["password"] = undefined /*out*/;
+            resourceInputs["tags"] = undefined /*out*/;
+            resourceInputs["vaultName"] = undefined /*out*/;
+            resourceInputs["version"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(KeyVaultCertificate.__pulumiType, name, resourceInputs, opts);
@@ -57,4 +81,8 @@ export class KeyVaultCertificate extends pulumi.CustomResource {
  * The set of arguments for constructing a KeyVaultCertificate resource.
  */
 export interface KeyVaultCertificateArgs {
+    base64EncodedCertificate: pulumi.Input<string>;
+    password?: pulumi.Input<string>;
+    tags?: pulumi.Input<{[key: string]: pulumi.Input<string>}>;
+    vaultName: pulumi.Input<string>;
 }

@@ -7,6 +7,7 @@ import (
 	"context"
 	"reflect"
 
+	"errors"
 	"github.com/jhoeflaken/pulumi-azure-ext/provider/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
@@ -14,15 +15,28 @@ import (
 // An Azure key vault certificate.
 type KeyVaultCertificate struct {
 	pulumi.CustomResourceState
+
+	Base64EncodedCertificate pulumi.StringOutput    `pulumi:"base64EncodedCertificate"`
+	Name                     pulumi.StringOutput    `pulumi:"name"`
+	Password                 pulumi.StringPtrOutput `pulumi:"password"`
+	Tags                     pulumi.StringMapOutput `pulumi:"tags"`
+	VaultName                pulumi.StringOutput    `pulumi:"vaultName"`
+	Version                  pulumi.StringOutput    `pulumi:"version"`
 }
 
 // NewKeyVaultCertificate registers a new resource with the given unique name, arguments, and options.
 func NewKeyVaultCertificate(ctx *pulumi.Context,
 	name string, args *KeyVaultCertificateArgs, opts ...pulumi.ResourceOption) (*KeyVaultCertificate, error) {
 	if args == nil {
-		args = &KeyVaultCertificateArgs{}
+		return nil, errors.New("missing one or more required arguments")
 	}
 
+	if args.Base64EncodedCertificate == nil {
+		return nil, errors.New("invalid value for required argument 'Base64EncodedCertificate'")
+	}
+	if args.VaultName == nil {
+		return nil, errors.New("invalid value for required argument 'VaultName'")
+	}
 	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource KeyVaultCertificate
 	err := ctx.RegisterResource("azure-ext:certificate:KeyVaultCertificate", name, args, &resource, opts...)
@@ -56,10 +70,18 @@ func (KeyVaultCertificateState) ElementType() reflect.Type {
 }
 
 type keyVaultCertificateArgs struct {
+	Base64EncodedCertificate string            `pulumi:"base64EncodedCertificate"`
+	Password                 *string           `pulumi:"password"`
+	Tags                     map[string]string `pulumi:"tags"`
+	VaultName                string            `pulumi:"vaultName"`
 }
 
 // The set of arguments for constructing a KeyVaultCertificate resource.
 type KeyVaultCertificateArgs struct {
+	Base64EncodedCertificate pulumi.StringInput
+	Password                 pulumi.StringPtrInput
+	Tags                     pulumi.StringMapInput
+	VaultName                pulumi.StringInput
 }
 
 func (KeyVaultCertificateArgs) ElementType() reflect.Type {
@@ -147,6 +169,30 @@ func (o KeyVaultCertificateOutput) ToKeyVaultCertificateOutput() KeyVaultCertifi
 
 func (o KeyVaultCertificateOutput) ToKeyVaultCertificateOutputWithContext(ctx context.Context) KeyVaultCertificateOutput {
 	return o
+}
+
+func (o KeyVaultCertificateOutput) Base64EncodedCertificate() pulumi.StringOutput {
+	return o.ApplyT(func(v *KeyVaultCertificate) pulumi.StringOutput { return v.Base64EncodedCertificate }).(pulumi.StringOutput)
+}
+
+func (o KeyVaultCertificateOutput) Name() pulumi.StringOutput {
+	return o.ApplyT(func(v *KeyVaultCertificate) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
+}
+
+func (o KeyVaultCertificateOutput) Password() pulumi.StringPtrOutput {
+	return o.ApplyT(func(v *KeyVaultCertificate) pulumi.StringPtrOutput { return v.Password }).(pulumi.StringPtrOutput)
+}
+
+func (o KeyVaultCertificateOutput) Tags() pulumi.StringMapOutput {
+	return o.ApplyT(func(v *KeyVaultCertificate) pulumi.StringMapOutput { return v.Tags }).(pulumi.StringMapOutput)
+}
+
+func (o KeyVaultCertificateOutput) VaultName() pulumi.StringOutput {
+	return o.ApplyT(func(v *KeyVaultCertificate) pulumi.StringOutput { return v.VaultName }).(pulumi.StringOutput)
+}
+
+func (o KeyVaultCertificateOutput) Version() pulumi.StringOutput {
+	return o.ApplyT(func(v *KeyVaultCertificate) pulumi.StringOutput { return v.Version }).(pulumi.StringOutput)
 }
 
 type KeyVaultCertificateArrayOutput struct{ *pulumi.OutputState }

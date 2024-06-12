@@ -15,6 +15,25 @@ namespace Pulumi.AzureExt.Certificate
     [AzureExtResourceType("azure-ext:certificate:KeyVaultCertificate")]
     public partial class KeyVaultCertificate : global::Pulumi.CustomResource
     {
+        [Output("base64EncodedCertificate")]
+        public Output<string> Base64EncodedCertificate { get; private set; } = null!;
+
+        [Output("name")]
+        public Output<string> Name { get; private set; } = null!;
+
+        [Output("password")]
+        public Output<string?> Password { get; private set; } = null!;
+
+        [Output("tags")]
+        public Output<ImmutableDictionary<string, string>?> Tags { get; private set; } = null!;
+
+        [Output("vaultName")]
+        public Output<string> VaultName { get; private set; } = null!;
+
+        [Output("version")]
+        public Output<string> Version { get; private set; } = null!;
+
+
         /// <summary>
         /// Create a KeyVaultCertificate resource with the given unique name, arguments, and options.
         /// </summary>
@@ -22,7 +41,7 @@ namespace Pulumi.AzureExt.Certificate
         /// <param name="name">The unique name of the resource</param>
         /// <param name="args">The arguments used to populate this resource's properties</param>
         /// <param name="options">A bag of options that control this resource's behavior</param>
-        public KeyVaultCertificate(string name, KeyVaultCertificateArgs? args = null, CustomResourceOptions? options = null)
+        public KeyVaultCertificate(string name, KeyVaultCertificateArgs args, CustomResourceOptions? options = null)
             : base("azure-ext:certificate:KeyVaultCertificate", name, args ?? new KeyVaultCertificateArgs(), MakeResourceOptions(options, ""))
         {
         }
@@ -59,6 +78,23 @@ namespace Pulumi.AzureExt.Certificate
 
     public sealed class KeyVaultCertificateArgs : global::Pulumi.ResourceArgs
     {
+        [Input("base64EncodedCertificate", required: true)]
+        public Input<string> Base64EncodedCertificate { get; set; } = null!;
+
+        [Input("password")]
+        public Input<string>? Password { get; set; }
+
+        [Input("tags")]
+        private InputMap<string>? _tags;
+        public InputMap<string> Tags
+        {
+            get => _tags ?? (_tags = new InputMap<string>());
+            set => _tags = value;
+        }
+
+        [Input("vaultName", required: true)]
+        public Input<string> VaultName { get; set; } = null!;
+
         public KeyVaultCertificateArgs()
         {
         }

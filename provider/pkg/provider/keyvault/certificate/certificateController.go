@@ -77,9 +77,9 @@ func (c *KeyVaultCertificate) Delete(ctx p.Context, id string, props KeyVaultCer
 }
 
 // Create a new client for managing the Azure Key Vault Certificates.
-func newClient(ctx p.Context, vaultName string) (*azcertificates.Client, error) {
+func newClient(ctx p.Context, vaultName *string) (*azcertificates.Client, error) {
 	var config = infer.GetConfig[*cfg.Config](ctx)
-	client, err := azcertificates.NewClient(vaultName, config.Credential, nil)
+	client, err := azcertificates.NewClient(*vaultName, config.Credential, nil)
 	if err != nil {
 		return nil, err
 	}

@@ -13,11 +13,56 @@ __all__ = ['KeyVaultCertificateArgs', 'KeyVaultCertificate']
 
 @pulumi.input_type
 class KeyVaultCertificateArgs:
-    def __init__(__self__):
+    def __init__(__self__, *,
+                 base64_encoded_certificate: pulumi.Input[str],
+                 vault_name: pulumi.Input[str],
+                 password: Optional[pulumi.Input[str]] = None,
+                 tags: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None):
         """
         The set of arguments for constructing a KeyVaultCertificate resource.
         """
-        pass
+        pulumi.set(__self__, "base64_encoded_certificate", base64_encoded_certificate)
+        pulumi.set(__self__, "vault_name", vault_name)
+        if password is not None:
+            pulumi.set(__self__, "password", password)
+        if tags is not None:
+            pulumi.set(__self__, "tags", tags)
+
+    @property
+    @pulumi.getter(name="base64EncodedCertificate")
+    def base64_encoded_certificate(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "base64_encoded_certificate")
+
+    @base64_encoded_certificate.setter
+    def base64_encoded_certificate(self, value: pulumi.Input[str]):
+        pulumi.set(self, "base64_encoded_certificate", value)
+
+    @property
+    @pulumi.getter(name="vaultName")
+    def vault_name(self) -> pulumi.Input[str]:
+        return pulumi.get(self, "vault_name")
+
+    @vault_name.setter
+    def vault_name(self, value: pulumi.Input[str]):
+        pulumi.set(self, "vault_name", value)
+
+    @property
+    @pulumi.getter
+    def password(self) -> Optional[pulumi.Input[str]]:
+        return pulumi.get(self, "password")
+
+    @password.setter
+    def password(self, value: Optional[pulumi.Input[str]]):
+        pulumi.set(self, "password", value)
+
+    @property
+    @pulumi.getter
+    def tags(self) -> Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]:
+        return pulumi.get(self, "tags")
+
+    @tags.setter
+    def tags(self, value: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]]):
+        pulumi.set(self, "tags", value)
 
 
 class KeyVaultCertificate(pulumi.CustomResource):
@@ -25,6 +70,10 @@ class KeyVaultCertificate(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 base64_encoded_certificate: Optional[pulumi.Input[str]] = None,
+                 password: Optional[pulumi.Input[str]] = None,
+                 tags: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
+                 vault_name: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         """
         An Azure key vault certificate.
@@ -36,7 +85,7 @@ class KeyVaultCertificate(pulumi.CustomResource):
     @overload
     def __init__(__self__,
                  resource_name: str,
-                 args: Optional[KeyVaultCertificateArgs] = None,
+                 args: KeyVaultCertificateArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
         An Azure key vault certificate.
@@ -56,6 +105,10 @@ class KeyVaultCertificate(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
+                 base64_encoded_certificate: Optional[pulumi.Input[str]] = None,
+                 password: Optional[pulumi.Input[str]] = None,
+                 tags: Optional[pulumi.Input[Mapping[str, pulumi.Input[str]]]] = None,
+                 vault_name: Optional[pulumi.Input[str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -65,6 +118,16 @@ class KeyVaultCertificate(pulumi.CustomResource):
                 raise TypeError('__props__ is only valid when passed in combination with a valid opts.id to get an existing resource')
             __props__ = KeyVaultCertificateArgs.__new__(KeyVaultCertificateArgs)
 
+            if base64_encoded_certificate is None and not opts.urn:
+                raise TypeError("Missing required property 'base64_encoded_certificate'")
+            __props__.__dict__["base64_encoded_certificate"] = base64_encoded_certificate
+            __props__.__dict__["password"] = password
+            __props__.__dict__["tags"] = tags
+            if vault_name is None and not opts.urn:
+                raise TypeError("Missing required property 'vault_name'")
+            __props__.__dict__["vault_name"] = vault_name
+            __props__.__dict__["name"] = None
+            __props__.__dict__["version"] = None
         super(KeyVaultCertificate, __self__).__init__(
             'azure-ext:certificate:KeyVaultCertificate',
             resource_name,
@@ -87,5 +150,41 @@ class KeyVaultCertificate(pulumi.CustomResource):
 
         __props__ = KeyVaultCertificateArgs.__new__(KeyVaultCertificateArgs)
 
+        __props__.__dict__["base64_encoded_certificate"] = None
+        __props__.__dict__["name"] = None
+        __props__.__dict__["password"] = None
+        __props__.__dict__["tags"] = None
+        __props__.__dict__["vault_name"] = None
+        __props__.__dict__["version"] = None
         return KeyVaultCertificate(resource_name, opts=opts, __props__=__props__)
+
+    @property
+    @pulumi.getter(name="base64EncodedCertificate")
+    def base64_encoded_certificate(self) -> pulumi.Output[str]:
+        return pulumi.get(self, "base64_encoded_certificate")
+
+    @property
+    @pulumi.getter
+    def name(self) -> pulumi.Output[str]:
+        return pulumi.get(self, "name")
+
+    @property
+    @pulumi.getter
+    def password(self) -> pulumi.Output[Optional[str]]:
+        return pulumi.get(self, "password")
+
+    @property
+    @pulumi.getter
+    def tags(self) -> pulumi.Output[Optional[Mapping[str, str]]]:
+        return pulumi.get(self, "tags")
+
+    @property
+    @pulumi.getter(name="vaultName")
+    def vault_name(self) -> pulumi.Output[str]:
+        return pulumi.get(self, "vault_name")
+
+    @property
+    @pulumi.getter
+    def version(self) -> pulumi.Output[str]:
+        return pulumi.get(self, "version")
 
