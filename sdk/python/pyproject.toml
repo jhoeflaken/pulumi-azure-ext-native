@@ -5,7 +5,7 @@
   keywords = ["azure", "extension"]
   readme = "README.md"
   requires-python = ">=3.8"
-  version = "0.0.1a1718138836+ca9a95d4.dirty"
+  version = "0.0.1a1718177418+55ad8fee"
   [project.license]
     text = "Apache-2.0"
   [project.urls]

@@ -9,7 +9,7 @@
     <PackageProjectUrl></PackageProjectUrl>
     <RepositoryUrl>https://github.com/jhoeflaken/pulumi-azure-ext</RepositoryUrl>
     <PackageIcon>logo.png</PackageIcon>
-    <Version>0.0.1-alpha.1718138836+ca9a95d4.dirty</Version>
+    <Version>0.0.1-alpha.1718177418+55ad8fee</Version>
 
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>

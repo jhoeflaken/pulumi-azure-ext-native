@@ -1,6 +1,6 @@
 {
     "name": "@pulumi/azure-ext",
-    "version": "0.0.1-alpha.1718138836+ca9a95d4.dirty",
+    "version": "0.0.1-alpha.1718177418+55ad8fee",
     "keywords": [
         "azure",
         "extension"
@@ -20,7 +20,7 @@
     "pulumi": {
         "resource": true,
         "name": "azure-ext",
-        "version": "0.0.1-alpha.1718138836+ca9a95d4.dirty"
+        "version": "0.0.1-alpha.1718177418+55ad8fee"
     },
     "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
 }
