@@ -11,8 +11,11 @@ from .provider import *
 if typing.TYPE_CHECKING:
     import pulumi_azure_ext.certificate as __certificate
     certificate = __certificate
+    import pulumi_azure_ext.config as __config
+    config = __config
 else:
     certificate = _utilities.lazy_import('pulumi_azure_ext.certificate')
+    config = _utilities.lazy_import('pulumi_azure_ext.config')
 
 _utilities.register(
     resource_modules="""

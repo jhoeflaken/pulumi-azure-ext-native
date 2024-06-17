@@ -6,12 +6,21 @@ package com.pulumi.azureext;
 import com.pulumi.azureext.ProviderArgs;
 import com.pulumi.azureext.Utilities;
 import com.pulumi.core.Output;
+import com.pulumi.core.annotations.Export;
 import com.pulumi.core.annotations.ResourceType;
 import com.pulumi.core.internal.Codegen;
+import java.lang.String;
 import javax.annotation.Nullable;
 
 @ResourceType(type="pulumi:providers:azure-ext")
 public class Provider extends com.pulumi.resources.ProviderResource {
+    @Export(name="version", refs={String.class}, tree="[0]")
+    private Output<String> version;
+
+    public Output<String> version() {
+        return this.version;
+    }
+
     /**
      *
      * @param name The _unique_ name of the resulting resource.
@@ -24,7 +33,7 @@ public class Provider extends com.pulumi.resources.ProviderResource {
      * @param name The _unique_ name of the resulting resource.
      * @param args The arguments to use to populate this resource's properties.
      */
-    public Provider(String name, @Nullable ProviderArgs args) {
+    public Provider(String name, ProviderArgs args) {
         this(name, args, null);
     }
     /**
@@ -33,7 +42,7 @@ public class Provider extends com.pulumi.resources.ProviderResource {
      * @param args The arguments to use to populate this resource's properties.
      * @param options A bag of options that control this resource's behavior.
      */
-    public Provider(String name, @Nullable ProviderArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
+    public Provider(String name, ProviderArgs args, @Nullable com.pulumi.resources.CustomResourceOptions options) {
         super("azure-ext", name, args == null ? ProviderArgs.Empty : args, makeResourceOptions(options, Codegen.empty()));
     }
 

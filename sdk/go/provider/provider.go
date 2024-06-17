@@ -7,21 +7,27 @@ import (
 	"context"
 	"reflect"
 
+	"errors"
 	"github.com/jhoeflaken/pulumi-azure-ext/provider/internal"
 	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
 )
 
 type Provider struct {
 	pulumi.ProviderResourceState
+
+	Version pulumi.StringOutput `pulumi:"version"`
 }
 
 // NewProvider registers a new resource with the given unique name, arguments, and options.
 func NewProvider(ctx *pulumi.Context,
 	name string, args *ProviderArgs, opts ...pulumi.ResourceOption) (*Provider, error) {
 	if args == nil {
-		args = &ProviderArgs{}
+		return nil, errors.New("missing one or more required arguments")
 	}
 
+	if args.Version == nil {
+		return nil, errors.New("invalid value for required argument 'Version'")
+	}
 	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource Provider
 	err := ctx.RegisterResource("pulumi:providers:azure-ext", name, args, &resource, opts...)
@@ -32,10 +38,12 @@ func NewProvider(ctx *pulumi.Context,
 }
 
 type providerArgs struct {
+	Version string `pulumi:"version"`
 }
 
 // The set of arguments for constructing a Provider resource.
 type ProviderArgs struct {
+	Version pulumi.StringInput
 }
 
 func (ProviderArgs) ElementType() reflect.Type {
@@ -73,6 +81,10 @@ func (o ProviderOutput) ToProviderOutput() ProviderOutput {
 
 func (o ProviderOutput) ToProviderOutputWithContext(ctx context.Context) ProviderOutput {
 	return o
+}
+
+func (o ProviderOutput) Version() pulumi.StringOutput {
+	return o.ApplyT(func(v *Provider) pulumi.StringOutput { return v.Version }).(pulumi.StringOutput)
 }
 
 func init() {

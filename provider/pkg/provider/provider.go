@@ -3,6 +3,7 @@ package provider
 import (
 	cfg "github.com/jhoeflaken/pulumi-azure-ext-native/provider/pkg/provider/config"
 	"github.com/jhoeflaken/pulumi-azure-ext-native/provider/pkg/provider/keyvault/certificate"
+	"github.com/jhoeflaken/pulumi-azure-ext-native/provider/pkg/provider/time"
 	p "github.com/pulumi/pulumi-go-provider"
 	"github.com/pulumi/pulumi-go-provider/infer"
 	"github.com/pulumi/pulumi-go-provider/middleware/schema"
@@ -12,6 +13,9 @@ func Provider() p.Provider {
 	var resources []infer.InferredResource
 
 	var resource = infer.Resource[*certificate.KeyVaultCertificate, certificate.KeyVaultCertificateArgs, certificate.KeyVaultCertificateState]()
+	resources = append(resources, resource)
+
+	resource = infer.Resource[*time.Sleep, time.SleepArgs, time.SleepState]()
 	resources = append(resources, resource)
 
 	var config = infer.Config[*cfg.Config]()

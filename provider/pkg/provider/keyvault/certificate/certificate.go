@@ -24,7 +24,11 @@ type KeyVaultCertificateArgs struct {
 }
 
 type KeyVaultCertificateState struct {
-	KeyVaultCertificateArgs
-	Name    string `pulumi:"name"`
-	Version string `pulumi:"version"`
+	VaultName                *string             `pulumi:"vaultName"`
+	Base64EncodedCertificate *string             `pulumi:"base64EncodedCertificate"`
+	Password                 *string             `pulumi:"password,optional"`
+	Tags                     *map[string]*string `pulumi:"tags,optional"`
+	Name                     string              `pulumi:"name"`
+	Version                  string              `pulumi:"version"`
+	SecretId                 string              `pulumi:"secretId"`
 }

@@ -5,7 +5,6 @@ import (
 	cfg "github.com/jhoeflaken/pulumi-azure-ext-native/provider/pkg/provider/config"
 	"github.com/pkg/errors"
 	p "github.com/pulumi/pulumi-go-provider"
-
 	"github.com/pulumi/pulumi-go-provider/infer"
 )
 
@@ -28,14 +27,22 @@ func (c *KeyVaultCertificate) Create(ctx p.Context, name string, args KeyVaultCe
 		return "", KeyVaultCertificateState{}, nil
 	}
 
-	resp, err := client.ImportCertificate(ctx, name, azcertificates.ImportCertificateParameters{}, nil)
+	resp, err := client.ImportCertificate(ctx, name, azcertificates.ImportCertificateParameters{
+		Base64EncodedCertificate: args.Base64EncodedCertificate,
+		Password:                 args.Password,
+	}, nil)
 	if err != nil {
 		return "", KeyVaultCertificateState{}, errors.Wrap(err, "Failed to import certificate.")
 	}
 
 	return resp.ID.Name(), KeyVaultCertificateState{
-		Name:    resp.ID.Name(),
-		Version: resp.ID.Version(),
+		Name:                     resp.ID.Name(),
+		Version:                  resp.ID.Version(),
+		SecretId:                 resp.SID.Name(),
+		VaultName:                args.VaultName,
+		Base64EncodedCertificate: args.Base64EncodedCertificate,
+		Password:                 args.Password,
+		Tags:                     args.Tags,
 	}, nil
 }
 
@@ -50,14 +57,22 @@ func (c *KeyVaultCertificate) Update(ctx p.Context, name string, olds KeyVaultCe
 		return KeyVaultCertificateState{}, nil
 	}
 
-	resp, err := client.ImportCertificate(ctx, name, azcertificates.ImportCertificateParameters{}, nil)
+	resp, err := client.ImportCertificate(ctx, name, azcertificates.ImportCertificateParameters{
+		Base64EncodedCertificate: news.Base64EncodedCertificate,
+		Password:                 news.Password,
+	}, nil)
 	if err != nil {
 		return KeyVaultCertificateState{}, errors.Wrap(err, "Failed to import certificate.")
 	}
 
 	return KeyVaultCertificateState{
-		Name:    resp.ID.Name(),
-		Version: resp.ID.Version(),
+		Name:                     resp.ID.Name(),
+		Version:                  resp.ID.Version(),
+		SecretId:                 resp.SID.Name(),
+		VaultName:                news.VaultName,
+		Base64EncodedCertificate: news.Base64EncodedCertificate,
+		Password:                 news.Password,
+		Tags:                     news.Tags,
 	}, nil
 }
 
@@ -79,7 +94,8 @@ func (c *KeyVaultCertificate) Delete(ctx p.Context, id string, props KeyVaultCer
 // Create a new client for managing the Azure Key Vault Certificates.
 func newClient(ctx p.Context, vaultName *string) (*azcertificates.Client, error) {
 	var config = infer.GetConfig[*cfg.Config](ctx)
-	client, err := azcertificates.NewClient(*vaultName, config.Credential, nil)
+	var vaultUrl = "https://" + *vaultName + ".vault.azure.net"
+	client, err := azcertificates.NewClient(vaultUrl, config.Credential, nil)
 	if err != nil {
 		return nil, err
 	}

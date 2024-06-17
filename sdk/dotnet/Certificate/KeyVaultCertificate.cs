@@ -24,6 +24,9 @@ namespace Pulumi.AzureExt.Certificate
         [Output("password")]
         public Output<string?> Password { get; private set; } = null!;
 
+        [Output("secretId")]
+        public Output<string> SecretId { get; private set; } = null!;
+
         [Output("tags")]
         public Output<ImmutableDictionary<string, string>?> Tags { get; private set; } = null!;
 

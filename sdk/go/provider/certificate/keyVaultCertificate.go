@@ -19,6 +19,7 @@ type KeyVaultCertificate struct {
 	Base64EncodedCertificate pulumi.StringOutput    `pulumi:"base64EncodedCertificate"`
 	Name                     pulumi.StringOutput    `pulumi:"name"`
 	Password                 pulumi.StringPtrOutput `pulumi:"password"`
+	SecretId                 pulumi.StringOutput    `pulumi:"secretId"`
 	Tags                     pulumi.StringMapOutput `pulumi:"tags"`
 	VaultName                pulumi.StringOutput    `pulumi:"vaultName"`
 	Version                  pulumi.StringOutput    `pulumi:"version"`
@@ -181,6 +182,10 @@ func (o KeyVaultCertificateOutput) Name() pulumi.StringOutput {
 
 func (o KeyVaultCertificateOutput) Password() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *KeyVaultCertificate) pulumi.StringPtrOutput { return v.Password }).(pulumi.StringPtrOutput)
+}
+
+func (o KeyVaultCertificateOutput) SecretId() pulumi.StringOutput {
+	return o.ApplyT(func(v *KeyVaultCertificate) pulumi.StringOutput { return v.SecretId }).(pulumi.StringOutput)
 }
 
 func (o KeyVaultCertificateOutput) Tags() pulumi.StringMapOutput {

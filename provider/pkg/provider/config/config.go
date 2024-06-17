@@ -8,6 +8,7 @@ import (
 )
 
 type Config struct {
+	Version    string `pulumi:"version"`
 	Credential *azidentity.DefaultAzureCredential
 }
 

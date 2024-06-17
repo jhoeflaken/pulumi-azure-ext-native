@@ -127,6 +127,7 @@ class KeyVaultCertificate(pulumi.CustomResource):
                 raise TypeError("Missing required property 'vault_name'")
             __props__.__dict__["vault_name"] = vault_name
             __props__.__dict__["name"] = None
+            __props__.__dict__["secret_id"] = None
             __props__.__dict__["version"] = None
         super(KeyVaultCertificate, __self__).__init__(
             'azure-ext:certificate:KeyVaultCertificate',
@@ -150,18 +151,11 @@ class KeyVaultCertificate(pulumi.CustomResource):
 
         __props__ = KeyVaultCertificateArgs.__new__(KeyVaultCertificateArgs)
 
-        __props__.__dict__["base64_encoded_certificate"] = None
         __props__.__dict__["name"] = None
-        __props__.__dict__["password"] = None
-        __props__.__dict__["tags"] = None
+        __props__.__dict__["secret_id"] = None
         __props__.__dict__["vault_name"] = None
         __props__.__dict__["version"] = None
         return KeyVaultCertificate(resource_name, opts=opts, __props__=__props__)
-
-    @property
-    @pulumi.getter(name="base64EncodedCertificate")
-    def base64_encoded_certificate(self) -> pulumi.Output[str]:
-        return pulumi.get(self, "base64_encoded_certificate")
 
     @property
     @pulumi.getter
@@ -169,14 +163,9 @@ class KeyVaultCertificate(pulumi.CustomResource):
         return pulumi.get(self, "name")
 
     @property
-    @pulumi.getter
-    def password(self) -> pulumi.Output[Optional[str]]:
-        return pulumi.get(self, "password")
-
-    @property
-    @pulumi.getter
-    def tags(self) -> pulumi.Output[Optional[Mapping[str, str]]]:
-        return pulumi.get(self, "tags")
+    @pulumi.getter(name="secretId")
+    def secret_id(self) -> pulumi.Output[str]:
+        return pulumi.get(self, "secret_id")
 
     @property
     @pulumi.getter(name="vaultName")

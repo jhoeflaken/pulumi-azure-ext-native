@@ -38,6 +38,12 @@ public class KeyVaultCertificate extends com.pulumi.resources.CustomResource {
     public Output<Optional<String>> password() {
         return Codegen.optional(this.password);
     }
+    @Export(name="secretId", refs={String.class}, tree="[0]")
+    private Output<String> secretId;
+
+    public Output<String> secretId() {
+        return this.secretId;
+    }
     @Export(name="tags", refs={Map.class,String.class}, tree="[0,1,1]")
     private Output</* @Nullable */ Map<String,String>> tags;
 

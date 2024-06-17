@@ -13,9 +13,13 @@ utilities.lazyLoad(exports, ["Provider"], () => require("./provider"));
 
 // Export sub-modules:
 import * as certificate from "./certificate";
+import * as config from "./config";
+import * as time from "./time";
 
 export {
     certificate,
+    config,
+    time,
 };
 pulumi.runtime.registerResourcePackage("azure-ext", {
     version: utilities.getVersion(),

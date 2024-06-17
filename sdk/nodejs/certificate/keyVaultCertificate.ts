@@ -37,6 +37,7 @@ export class KeyVaultCertificate extends pulumi.CustomResource {
     public readonly base64EncodedCertificate!: pulumi.Output<string>;
     public /*out*/ readonly name!: pulumi.Output<string>;
     public readonly password!: pulumi.Output<string | undefined>;
+    public /*out*/ readonly secretId!: pulumi.Output<string>;
     public readonly tags!: pulumi.Output<{[key: string]: string} | undefined>;
     public readonly vaultName!: pulumi.Output<string>;
     public /*out*/ readonly version!: pulumi.Output<string>;
@@ -63,11 +64,13 @@ export class KeyVaultCertificate extends pulumi.CustomResource {
             resourceInputs["tags"] = args ? args.tags : undefined;
             resourceInputs["vaultName"] = args ? args.vaultName : undefined;
             resourceInputs["name"] = undefined /*out*/;
+            resourceInputs["secretId"] = undefined /*out*/;
             resourceInputs["version"] = undefined /*out*/;
         } else {
             resourceInputs["base64EncodedCertificate"] = undefined /*out*/;
             resourceInputs["name"] = undefined /*out*/;
             resourceInputs["password"] = undefined /*out*/;
+            resourceInputs["secretId"] = undefined /*out*/;
             resourceInputs["tags"] = undefined /*out*/;
             resourceInputs["vaultName"] = undefined /*out*/;
             resourceInputs["version"] = undefined /*out*/;

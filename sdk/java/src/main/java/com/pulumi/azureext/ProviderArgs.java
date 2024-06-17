@@ -3,15 +3,35 @@
 
 package com.pulumi.azureext;
 
-
+import com.pulumi.core.Output;
+import com.pulumi.core.annotations.Import;
+import com.pulumi.exceptions.MissingRequiredPropertyException;
+import java.lang.String;
+import java.util.Objects;
 
 
 public final class ProviderArgs extends com.pulumi.resources.ResourceArgs {
 
     public static final ProviderArgs Empty = new ProviderArgs();
 
+    @Import(name="version", required=true)
+    private Output<String> version;
+
+    public Output<String> version() {
+        return this.version;
+    }
+
+    private ProviderArgs() {}
+
+    private ProviderArgs(ProviderArgs $) {
+        this.version = $.version;
+    }
+
     public static Builder builder() {
         return new Builder();
+    }
+    public static Builder builder(ProviderArgs defaults) {
+        return new Builder(defaults);
     }
 
     public static final class Builder {
@@ -20,7 +40,24 @@ public final class ProviderArgs extends com.pulumi.resources.ResourceArgs {
         public Builder() {
             $ = new ProviderArgs();
         }
+
+        public Builder(ProviderArgs defaults) {
+            $ = new ProviderArgs(Objects.requireNonNull(defaults));
+        }
+
+        public Builder version(Output<String> version) {
+            $.version = version;
+            return this;
+        }
+
+        public Builder version(String version) {
+            return version(Output.of(version));
+        }
+
         public ProviderArgs build() {
+            if ($.version == null) {
+                throw new MissingRequiredPropertyException("ProviderArgs", "version");
+            }
             return $;
         }
     }
